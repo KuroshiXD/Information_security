@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ панель</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Админ панель</h1>
+
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+    <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+
+    <h2 class="text-center mb-4">Все пользователи</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Имя пользователя</th>
+                <th>Email</th>
+                <th>Роль</th>
+                <th>Статус</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.role}"></td>
+                <td>
+                    <a th:if="${not user.blocked and user.role != 'ROLE_ADMIN'}" th:href="@{/admin/users/{id}/block(id=${user.id})}" class="btn btn-sm btn-warning me-2">Заблокировать</a>
+
+                    <a th:if="${user.blocked and user.role != 'ROLE_ADMIN'}" th:href="@{/admin/users/{id}/unblock(id=${user.id})}" class="btn btn-sm btn-success me-2">Разблокировать</a>
+
+                    <a th:if="${user.role != 'ROLE_ADMIN'}" th:href="@{/admin/users/{id}/add_password_settings(id=${user.id})}" class="btn btn-sm btn-success me-2">Задать настройки пароля</a>
+
+                    <a th:if="${user.role != 'ROLE_ADMIN'}" th:href="@{/admin/users/{id}/delete(id=${user.id})}" class="btn btn-sm btn-danger me-2">Удалить</a>
+
+                    <a th:if="${user.role != 'ROLE_ADMIN'}" th:href="@{/admin/users/{id}/assign_admin(id=${user.id})}" class="btn btn-sm btn-info">Сделать админом</a>
+
+                    <a th:if="${user.role == 'ROLE_ADMIN' and user != current_user and current_user.email == user.assignedAdminBy}"
+                       th:href="@{/admin/users/{id}/unassign_admin(id=${user.id})}" class="btn btn-sm btn-secondary">Убрать админа</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="text-center mb-4">Все статьи</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Автор</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="topic : ${topics}">
+                <td th:text="${topic.id}"></td>
+                <td>
+                    <a th:href="@{/topics/{id}(id=${topic.id})}" th:text="${topic.title}" class="text-decoration-none"></a>
+                </td>
+                <td th:text="${topic.author.username}"></td>
+                <td>
+                    <a th:href="@{/admin/topics/{id}/edit(id=${topic.id})}" class="btn btn-sm btn-primary me-2">Редактировать</a>
+                    <a th:href="@{/admin/topics/{id}/delete(id=${topic.id})}" class="btn btn-sm btn-danger">Удалить</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center mb-4">
+        <a href="/password_changing" class="btn btn-secondary me-2">Сменить пароль</a>
+        <a href="/topics" class="btn btn-secondary me-2">Вернуться к списку тем</a>
+        <a href="/topics/create-topic" class="btn btn-success me-2">Создать тему</a>
+        <a href="/admin/users/add_user" class="btn btn-success me-2">Создать пользователя</a>
+        <a href="/logout" class="btn btn-warning">Выйти</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+/* styles.css */
+
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f4f7f6;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 20px;
+}
+
+.container {
+    max-width: 400px; /* Уменьшил ширину для форм */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2, h3 {
+    color: #2c3e50;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-top: 20px;
+}
+
+h3 {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-top: 10px;
+}
+
+/* Формы */
+.form-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2980b9;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #7f8c8d;
+}
+
+input, textarea {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+input:focus, textarea:focus {
+    border-color: #2980b9;
+}
+
+button, .btn {
+    background-color: #2980b9;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, .btn:hover {
+    background-color: #3498db;
+}
+
+/* Ссылки */
+a {
+    color: #2980b9;
+    text-decoration: none;
+    font-size: 1rem;
+    margin-top: 15px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.link-group {
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* Стили для сообщений об ошибках и успешных операциях */
+.alert {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+/* Стили для страницы входа и регистрации */
+.form-group input {
+    font-size: 1rem;
+}
+
+.form-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2980b9;
+}
+
+/* Дополнительные стили для кнопок */
+button[type="submit"] {
+    background-color: #2980b9;
+    color: white;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #3498db;
+}
+
+/* Анимация для всех кнопок */
+button, .btn {
+    transition: transform 0.2s ease;
+}
+
+button:hover, .btn:hover {
+    transform: scale(1.05);
+}
+
+/* Анимация для ссылок */
+a {
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #3498db;
+}
+
+/* Стили для страниц с контентом */
+h2 {
+    font-size: 2rem;
+    color: #2980b9;
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: #7f8c8d;
+    margin-bottom: 20px;
+}
+
+/* Стили для заголовков в панели навигации */
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #2c3e50;
+    color: white;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.header .btn {
+    background-color: #16a085;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+}
+
+.header .btn:hover {
+    background-color: #1abc9c;
+}
+
+/* Стили для страницы с темами */
+.topics {
+    display: block;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #2980b9;
+    margin-top: 20px;
+}
+
+.topics:hover {
+    text-decoration: underline;
+}
+
+/* Стили для страницы профиля */
+.profile-header {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+}
+
+.profile-header span {
+    font-weight: bold;
+    color: #2980b9;
+}
+
+.content {
+    margin-top: 20px;
+}
+
+.topic-title {
+    display: block;
+    padding: 10px;
+    font-size: 1.2rem;
+    color: #2980b9;
+    text-decoration: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.topic-title:hover {
+    color: #3498db;
+}
