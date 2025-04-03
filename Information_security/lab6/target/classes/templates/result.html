@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Результат</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .text-block {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Результат</h1>
+
+    <div th:if="${error}" class="alert alert-danger">
+        <p th:text="${error}"></p>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title">Исходный текст:</h2>
+            <div class="text-block">
+                <pre th:text="${originalText}"></pre>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${encryptedText != null && !encryptedText.isEmpty()}" class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title">Зашифрованный текст:</h2>
+            <div class="text-block">
+                <pre th:text="${encryptedText}"></pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title">Расшифрованный текст:</h2>
+            <div class="text-block">
+                <pre th:text="${decryptedText}"></pre>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${analysisResult != null && !analysisResult.isEmpty()}" class="alert alert-success mb-4">
+        <h4>Результат анализа:</h4>
+        <p th:text="${analysisResult}"></p>
+        <div th:if="${topLetters != null}">
+            <p th:text="${keyExplanation}"></p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title">Частотный анализ букв</h2>
+            <div class="chart-container">
+                <canvas id="letterChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title">Топ-10 биграмм</h2>
+            <div class="chart-container">
+                <canvas id="bigramChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <a href="/crypto/index" class="btn btn-primary">Назад</a>
+</div>
+
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        // График частот букв
+        var letterData = /*[[${letterFrequencies}]]*/ {};
+        var letterLabels = Object.keys(letterData);
+        var letterValues = Object.values(letterData);
+
+        var letterCtx = document.getElementById('letterChart').getContext('2d');
+        new Chart(letterCtx, {
+            type: 'bar',
+            data: {
+                labels: letterLabels,
+                datasets: [{
+                    label: 'Частота букв',
+                    data: letterValues,
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        // График биграмм
+        var bigramData = /*[[${topBigrams}]]*/ {};
+        var bigramLabels = Object.keys(bigramData);
+        var bigramValues = Object.values(bigramData);
+
+        var bigramCtx = document.getElementById('bigramChart').getContext('2d');
+        new Chart(bigramCtx, {
+            type: 'bar',
+            data: {
+                labels: bigramLabels,
+                datasets: [{
+                    label: 'Количество биграмм',
+                    data: bigramValues,
+                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>
